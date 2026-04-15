@@ -1,0 +1,21 @@
+{
+  "name": "cyber-security-project---dd26",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/batorlang/Cyber-Security-Project---DD26#readme",
+  "bugs": {
+    "url": "https://github.com/batorlang/Cyber-Security-Project---DD26/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/batorlang/Cyber-Security-Project---DD26.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "install": "npm install --prefix client && npm install --prefix server",
+    "dev": "npm run dev --prefix client & npm run dev --prefix server"
+  }
+}
