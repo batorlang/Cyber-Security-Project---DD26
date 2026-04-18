@@ -70,7 +70,6 @@ function encryptBuffer(plainBuffer, key, aadBuffer){
 }
 /**
  * Funtion to decipher the Buffer
- * 
  * Return a concat. 
 */
 function decryptBuffer(encrypted, key, aadBuffer) {
