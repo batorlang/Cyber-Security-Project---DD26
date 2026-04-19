@@ -2,7 +2,8 @@
 //Crypto API used for encryption/ decryption also for key generation.
 //This is industry standard, but I can check out other options for manual algorithms if needed.
 
-const crypto = require('crypto');
+import crypto from "crypto";
+import { Buffer } from "buffer";
 
 const ALGORITHM = 'aes-256-gcm';
 const KEY_LENGTH = 32;
@@ -73,7 +74,7 @@ function encryptBuffer(plainBuffer, key, aadBuffer){
  * Return a concat. 
 */
 function decryptBuffer(encrypted, key, aadBuffer) {
-    if (!encrypted || typeof encrypted !== 'objet') {
+    if (!encrypted || typeof encrypted !== 'object') {
         throw new Error('Encrypted object is required. ');
     }
     if (encrypted.algorithm !== ALGORITHM) {
@@ -96,7 +97,7 @@ function encryptText(plainText, key, aadText) {
     if (typeof plainText !== 'string') {
         throw new Error('plainText must be a string');
     }
-    const aad = aadText ? Buffer.from(aadText, 'utf8') : undefined;
+    const add = aadText ? Buffer.from(aadText, 'utf8') : undefined;
     return encryptBuffer(Buffer.from(plainText, 'utf8'), key, add);
 }
 
@@ -107,7 +108,7 @@ function decrypotText(encrypted, key, aadText) {
 
 }
 
-module.exports = {
+export default {
     ALGORITHM,
     encryptBuffer,
     decryptBuffer,

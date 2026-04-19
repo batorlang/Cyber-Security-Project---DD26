@@ -1,8 +1,8 @@
 //WIP - Bator
 
-const crypto = require('crypto');
-const cryption = require('./cryption');
-const { type } = require('os');
+import crypto from "crypto";
+import { Buffer } from "buffer";
+import cryption from "./cryption";
 
 const KEY_LENGTH = 32;
 const SALT_LENGTH = 16;
@@ -78,7 +78,7 @@ function decryptMessageFromStorage(messageDoc, conversationKey) {
 
 
 
-module.export = {
+export default {
     PBKDF2_ITERATIONS,
     generateMasterKey,
     generateConversationKey,
