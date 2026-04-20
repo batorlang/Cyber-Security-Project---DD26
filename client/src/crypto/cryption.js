@@ -87,7 +87,7 @@ function decryptBuffer(encrypted, key, aadBuffer) {
         authTagLength: AUTH_TAG_LENGTH
     });
     if (aadBuffer) {
-        decipher.setADD(aadBuffer);
+        decipher.setAAD(aadBuffer);
     }
     decipher.setAuthTag(authTag);
     return Buffer.concat([decipher.update(ciphertext), decipher.final()]);
@@ -97,11 +97,11 @@ function encryptText(plainText, key, aadText) {
     if (typeof plainText !== 'string') {
         throw new Error('plainText must be a string');
     }
-    const add = aadText ? Buffer.from(aadText, 'utf8') : undefined;
-    return encryptBuffer(Buffer.from(plainText, 'utf8'), key, add);
+    const aad = aadText ? Buffer.from(aadText, 'utf8') : undefined;
+    return encryptBuffer(Buffer.from(plainText, 'utf8'), key, aad);
 }
 
-function decrypotText(encrypted, key, aadText) {
+function decryptText(encrypted, key, aadText) {
     const aad = aadText ? Buffer.from(aadText, 'utf8'): undefined;
     const plain = decryptBuffer(encrypted, key, aad);
     return plain.toString('utf8');
@@ -113,5 +113,5 @@ export default {
     encryptBuffer,
     decryptBuffer,
     encryptText,
-    decrypotText
+    decryptText
 };

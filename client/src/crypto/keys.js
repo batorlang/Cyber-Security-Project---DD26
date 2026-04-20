@@ -45,7 +45,7 @@ function createEncryptedMasterKeyForUser(pin) {
 //Login/unlock
 function recoverMasterKeyFromUser(pin, pinSalt, encryptedMasterKey) {
     const pinKey = derivePinKey(pin, pinSalt);
-    return crypto.encryptBuffer(conversationKey, userMasterKey);
+    return cryption.decryptBuffer(encryptedMasterKey, pinKey);
 }
 function encryptConversationKeyForUser(conversationKey, userMasterKey) {
   return cryption.encryptBuffer(conversationKey, userMasterKey);
