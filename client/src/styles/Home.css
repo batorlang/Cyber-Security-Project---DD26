@@ -64,6 +64,9 @@ footer {
 }
 
 nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 16px;
     background-color: inherit;
     box-shadow: none;
@@ -71,3 +74,8 @@ nav {
     font-size: 40px;
 }
 
+.logoutbtn {
+    margin-left: auto;
+    margin-right: 16px;
+    background-color: #646cff !important;
+}
