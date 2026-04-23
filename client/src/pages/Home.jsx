@@ -1,6 +1,7 @@
-import React from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button, Grid } from '@mui/material'
+import { AuthContext } from '../context/AuthContext'
 import Profiles from '../components/Profiles'
 import Chat from '../components/Chat'
 import '../styles/Home.css'
@@ -8,10 +9,11 @@ import '../styles/Home.css'
 
 const Home = () => {
     const navigate = useNavigate()
+    const { logout } = useContext(AuthContext)
 
     const handleLogout = () => {
-        // Implement logout logic here
-        console.log('User logged out')
+        // Call logout from auth context
+        logout()
         navigate('/login')
     }
     
