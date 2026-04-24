@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
+import { messageSchema } from '../utils/validation'
 
 const Chat = () => {
 	const [messages, setMessages] = useState([
@@ -11,6 +12,7 @@ const Chat = () => {
 		},
 	])
 	const [draft, setDraft] = useState('')
+	const [error, setError] = useState('')
 
 	const canSend = useMemo(() => draft.trim().length > 0, [draft])
 
@@ -18,6 +20,18 @@ const Chat = () => {
 		const trimmedMessage = draft.trim()
 
 		if (!trimmedMessage) {
+			setError('Message cannot be empty')
+			return
+		}
+
+		// Validate message using Zod schema
+		try {
+			messageSchema.parse({ content: trimmedMessage })
+			setError('')
+		} catch (err) {
+			if (err.errors && err.errors.length > 0) {
+				setError(err.errors[0].message)
+			}
 			return
 		}
 
@@ -38,6 +52,11 @@ const Chat = () => {
 			event.preventDefault()
 			handleSend()
 		}
+	}
+
+	const handleDraftChange = (e) => {
+		setDraft(e.target.value)
+		setError('') // Clear error when user starts typing
 	}
 
 	return (
@@ -95,13 +114,18 @@ const Chat = () => {
 			</Box>
 
 			<Box className="input-container">
+				{error && (
+					<Typography variant="caption" sx={{ color: '#ff6b6b', mb: 1, display: 'block' }}>
+						{error}
+					</Typography>
+				)}
 				<TextField
 					fullWidth
 					multiline
 					maxRows={4}
 					placeholder="Type a message..."
 					value={draft}
-					onChange={(event) => setDraft(event.target.value)}
+					onChange={handleDraftChange}
 					onKeyDown={handleKeyDown}
                     sx ={{
                         '& .MuiInputBase-root': {

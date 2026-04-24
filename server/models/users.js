@@ -1,5 +1,6 @@
 
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const EncryptedMasterKeySchema = new mongoose.Schema({
 	ciphertext: {
@@ -31,23 +32,36 @@ const UserSchema = new mongoose.Schema({
 		trim: true,
 		lowercase: true
 	},
-	passwordHash: {
+	password: {
 		type: String,
 		required: true
+	},
+	passwordHash: {
+		type: String
 	},
 	pinSalt: {
-		type: String,
-		required: true
+		type: String
 	},
 	encryptedMasterKey: {
-		type: EncryptedMasterKeySchema,
-		required: true
+		type: EncryptedMasterKeySchema
 	}
 }, {
 	timestamps: true
 });
 
-UserSchema.index({ username: 1 }, { unique: true });
-UserSchema.index({ email: 1 }, { unique: true });
+// Hash password before saving
+UserSchema.pre('save', async function() {
+	if (!this.isModified('password')) {
+		return;
+	}
+	const salt = await bcrypt.genSalt(10);
+	const hashedPassword = await bcrypt.hash(this.password, salt);
+	this.password = hashedPassword;
+});
+
+// Method to compare password with hashed password
+UserSchema.methods.comparePassword = async function(enteredPassword) {
+	return await bcrypt.compare(enteredPassword, this.password);
+};
 
 module.exports = mongoose.model('User', UserSchema);
