@@ -6,11 +6,13 @@ import Home from './pages/Home'
 import ProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider } from './context/AuthContext'
 
+import './App.css'
+
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <div className="App">
+        <div className="app">
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />

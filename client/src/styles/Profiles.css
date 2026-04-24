@@ -5,26 +5,26 @@
 
 .profiles-panel {
 	height: 100%;
-	padding: 20px;
 	border-radius: 24px;
 	background: transparent !important;
-	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-right: 1px solid rgba(255, 255, 255, 0.08);
 	color: #f4f7ff;
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+	align-items: center;
 }
 
-
-
 .profiles-title {
-	margin-bottom: 4px;
+	padding: .5rem 1rem;
 	font-weight: 700;
 	color: #f4f7ff;
+
 }
 
 .profiles-search {
-	margin-bottom: 8px;
+	margin: 0 1rem;
+	max-width: calc(100% - 2rem);
 }
 
 .profiles-search .MuiFilledInput-root {
@@ -62,6 +62,7 @@
 
 .profiles-list .MuiCollapse-root {
 	margin-bottom: 8px;
+	padding: 0 1rem;
 }
 
 .profiles-list .MuiCollapse-root:last-child {
