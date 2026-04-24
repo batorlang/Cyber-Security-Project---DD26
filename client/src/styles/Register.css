@@ -1,0 +1,58 @@
+.register-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.register-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 1rem;
+}
+
+.register-error {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.register-container > form > div {
+    margin-bottom: 20px;
+}
+
+.register-container button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.textField {
+    width: 100%;
+}
+
+.textField input,
+.textField label {
+    color: #646cff !important;
+}
+
+.textField .MuiFilledInput-root {
+    background-color: rgba(100, 108, 255, 0.1);
+}
+
+.textField .MuiFilledInput-root:hover {
+    background-color: rgba(100, 108, 255, 0.15);
+}
+
+.textField .MuiFilledInput-underline:before,
+.textField .MuiFilledInput-underline:after {
+    border-bottom-color: #646cff !important;
+}
+
+.register-footer {
+    margin-top: 15px;
+}
+
+footer {
+    margin-top: auto;
+    padding: 20px;
+    text-align: center;
+}
