@@ -27,7 +27,7 @@ const Register = () => {
             <form onSubmit={handleSubmit}>
               <TextField className='textField' id="filled-basic" label="Username" variant="filled" value={username} onChange={(e) => setUsername(e.target.value)} required />
 
-              <TextField className='textField' id="filled-basic" label="email" variant="filled" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <TextField className='textField' id="filled-basic" label="Email" variant="filled" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
               <TextField className='textField' id="filled-basic" label="Password" variant="filled" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               

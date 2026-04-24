@@ -7,7 +7,7 @@
 .register-container {
     max-width: 400px;
     margin: 50px auto;
-    padding: 55px;
+    padding: 1rem;
 }
 
 .register-error {
