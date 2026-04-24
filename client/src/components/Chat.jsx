@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { messageSchema } from '../utils/validation'
+import '../styles/Chat.css'
 
 const Chat = () => {
 	const [messages, setMessages] = useState([
@@ -36,13 +37,13 @@ const Chat = () => {
 		}
 
 		setMessages((currentMessages) => [
-			...currentMessages,
 			{
 				id: currentMessages.length + 1,
 				text: trimmedMessage,
 				sender: 'me',
 				date: new Date(),
 			},
+			...currentMessages,
 		])
 		setDraft('')
 	}
@@ -60,49 +61,19 @@ const Chat = () => {
 	}
 
 	return (
-		<Paper
-			className="chat-window"
-			elevation={0}
-			sx={{
-				p: 2,
-				display: 'flex',
-				flexDirection: 'column',
-				gap: 2,
-                backgroundColor: 'transparent',
-			}}
-		>
-			<Typography variant="h6" sx={{ color: '#f4f7ff' }}>
+		<Paper className="chat-window" elevation={0}>
+			<Typography variant="h6" className="chat-title">
 				Chat
 			</Typography>
 
-			<Box
-				className="messages-container"
-				sx={{
-					display: 'flex',
-					flexDirection: 'column',
-					gap: 1,
-					minHeight: 0,
-					flexGrow: 1,
-				}}
-			>
+			<Box className="messages-container">
 				{messages.map((message) => {
 					const isMine = message.sender === 'me'
 
 					return (
-						<Box
-							key={message.id}
-							sx={{
-								alignSelf: isMine ? 'flex-end' : 'flex-start',
-								maxWidth: '78%',
-								px: 1.5,
-								py: 1,
-								borderRadius: 2,
-								bgcolor: isMine ? '#646cff' : 'rgba(255, 255, 255, 0.07)',
-								color: '#fff',
-							}}
-						>
+						<Box key={message.id} className={`message ${isMine ? 'mine' : 'other'}`}>
 							<Typography variant="body2">{message.text}</Typography>
-							<Typography variant="caption" sx={{ opacity: 0.75 }}>
+							<Typography variant="caption" className="message-time">
 								{new Date(message.date).toLocaleTimeString([], {
 									hour: '2-digit',
 									minute: '2-digit',
@@ -115,11 +86,12 @@ const Chat = () => {
 
 			<Box className="input-container">
 				{error && (
-					<Typography variant="caption" sx={{ color: '#ff6b6b', mb: 1, display: 'block' }}>
+					<Typography variant="caption" className="error-text">
 						{error}
 					</Typography>
 				)}
 				<TextField
+					className="chat-input"
 					fullWidth
 					multiline
 					maxRows={4}
@@ -127,18 +99,8 @@ const Chat = () => {
 					value={draft}
 					onChange={handleDraftChange}
 					onKeyDown={handleKeyDown}
-                    sx ={{
-                        '& .MuiInputBase-root': {
-                            color: '#f4f7ff',
-                            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                            borderRadius: 2,
-                        },
-                        '& .MuiOutlinedInput-notchedOutline': {
-                            border: 'none',
-                        },
-                    }}
 				/>
-		
+
 			</Box>
 		</Paper>
 	)

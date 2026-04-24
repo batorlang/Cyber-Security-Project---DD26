@@ -70,7 +70,7 @@ footer {
 }
 
 .chat-list, .chat-window {
-    background-color: '#16171D';
+    background-color: #16171D !important;
 }
 
 nav {
