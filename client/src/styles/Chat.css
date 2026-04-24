@@ -1,0 +1,67 @@
+
+.chat-window {
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	background-color: transparent;
+}
+
+.chat-title {
+	color: #f4f7ff;
+}
+
+.messages-container {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 8px;
+	min-height: 0;
+	flex-grow: 1;
+	overflow: auto;
+}
+
+.message {
+	max-width: 78%;
+	padding: 8px 12px;
+	border-radius: 8px;
+	color: #fff;
+}
+
+.message.mine {
+	align-self: flex-end;
+    text-align: right;
+	background-color: #646cff;
+}
+
+.message.other {
+	align-self: flex-start;
+    text-align: left;
+	background-color: rgba(255, 255, 255, 0.07);
+}
+
+.message-time {
+	opacity: 0.75;
+	display: block;
+	margin-top: 4px;
+	font-size: 0.75rem;
+}
+
+.input-container {
+	margin-top: 8px;
+}
+
+.error-text {
+	color: #ff6b6b;
+	margin-bottom: 8px;
+	display: block;
+}
+
+.chat-input .MuiInputBase-root {
+	color: #f4f7ff;
+	background-color: rgba(255, 255, 255, 0.08);
+	border-radius: 8px;
+}
+
+.chat-input .MuiOutlinedInput-notchedOutline {
+	border: none;
+}
