@@ -1,22 +1,44 @@
-import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Home from './pages/Home'
-
-import './App.css'
+import ProtectedRoute from './components/ProtectedRoute'
+import { AuthProvider } from './context/AuthContext'
+import UnprotectedRoute from './components/UnprotectedRoute'
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="app">
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Home />} />
-        </Routes>
-      </div>
+      <AuthProvider>
+        <div className="app">
+          <Routes>
+            <Route
+              path="/login"
+              element={
+                <UnprotectedRoute>
+                  <Login />
+                </UnprotectedRoute>} />
+            <Route
+              path="/register"
+              element={
+                <UnprotectedRoute>
+                  <Register />
+                </UnprotectedRoute>} />
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>} />
+            <Route
+              path='*'
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>} />
+          </Routes>
+        </div>
+      </AuthProvider>
     </BrowserRouter>
   )
 }
