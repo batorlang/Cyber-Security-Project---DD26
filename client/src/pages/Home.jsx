@@ -12,9 +12,13 @@ const Home = () => {
     const { logout } = useContext(AuthContext)
 
     const handleLogout = () => {
-        // Call logout from auth context
-        logout()
-        navigate('/login')
+        try {
+            logout()
+        } finally {
+            localStorage.removeItem('jwtToken')
+            localStorage.removeItem('user')
+            navigate('/login', { replace: true })
+        }
     }
     
 
