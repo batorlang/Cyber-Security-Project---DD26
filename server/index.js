@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const User = require('./models/users');
 const authMiddleware = require('./middleware/auth');
 const { registerSchema, loginSchema, formatValidationError } = require('./utils/validation');
+const userRouter = require('./routes/users');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,6 +34,8 @@ const generateToken = (userId, email, username) => {
 };
 
 // Routes
+app.use('/api/auth', userRouter); //Register and login
+app.use('/api/users', userRouter); // Get Users
 
 // Test route
 app.get('/', (req, res) => {
