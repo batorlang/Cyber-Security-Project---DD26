@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Grid } from '@mui/material'
 import { AuthContext } from '../context/AuthContext'
@@ -6,41 +6,40 @@ import Profiles from '../components/Profiles'
 import Chat from '../components/Chat'
 import '../styles/Home.css'
 
-
 const Home = () => {
-    const navigate = useNavigate()
-    const { logout } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const { logout } = useContext(AuthContext)
+  const [selectedProfile, setSelectedProfile] = useState(null)
 
-    const handleLogout = () => {
-        try {
-            logout()
-        } finally {
-            localStorage.removeItem('jwtToken')
-            localStorage.removeItem('user')
-            navigate('/login', { replace: true })
-        }
+  const handleLogout = () => {
+    try {
+      logout()
+    } finally {
+      localStorage.removeItem('jwtToken')
+      localStorage.removeItem('user')
+      navigate('/login', { replace: true })
     }
-    
+  }
 
-    return (
-        <div className="page-wrapper">
-            <nav>
-                <div className="title">Chats</div>
-                <Button variant="contained" className="logoutbtn" onClick={handleLogout}>
-                    Log out
-                </Button>
+  return (
+    <div className="page-wrapper">
+      <nav>
+        <div className="title">Chats</div>
+        <Button variant="contained" className="logoutbtn" onClick={handleLogout}>
+          Log out
+        </Button>
+      </nav>
 
-            </nav>
-            <Grid container className="main-content">
-                <Grid item xs={4} className="main-column">
-                    <Profiles />
-                </Grid>
-                <Grid item xs={8} className="main-column">
-                    <Chat />
-                </Grid>
-            </Grid>
-        </div>
-    )
+      <Grid container className="main-content">
+        <Grid item xs={4} className="main-column">
+          <Profiles onStartChat={setSelectedProfile} />
+        </Grid>
+        <Grid item xs={8} className="main-column">
+          <Chat selectedProfile={selectedProfile} />
+        </Grid>
+      </Grid>
+    </div>
+  )
 }
 
 export default Home

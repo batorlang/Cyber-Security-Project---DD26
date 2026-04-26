@@ -3,17 +3,23 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+if (!process.env.JWT_SECRET) {
+    console.error('Missing JWT_SECRET in .env at project root.');
+    process.exit(1);
+}
+
 const User = require('./models/users');
 const authMiddleware = require('./middleware/auth');
 const { registerSchema, loginSchema, formatValidationError } = require('./utils/validation');
 const userRouter = require('./routes/users');
+const chatsRouter = require('./routes/chats');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-dotenv.config({
-    path: '../.env'
-});
 
 // Middleware
 app.use(cors());
@@ -36,6 +42,7 @@ const generateToken = (userId, email, username) => {
 // Routes
 app.use('/api/auth', userRouter); //Register and login
 app.use('/api/users', userRouter); // Get Users
+app.use('/api/chats', chatsRouter); // Chat conversations and messages
 
 // Test route
 app.get('/', (req, res) => {

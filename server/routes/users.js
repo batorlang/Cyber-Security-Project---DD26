@@ -12,6 +12,10 @@ const userRouter = express.Router();
 
 // Helper to generate JWT token ( i dont know is this required since we have t in index.js)
 const generateToken = (userId, email, username) => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('Missing JWT_SECRET in environment');
+  }
+
   return jwt.sign(
     { userId, email, username },
     process.env.JWT_SECRET,
