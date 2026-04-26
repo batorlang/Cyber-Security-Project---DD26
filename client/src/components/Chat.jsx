@@ -166,7 +166,7 @@ const Chat = ({ selectedProfile }) => {
           Chat
         </Typography>
         <Box className="messages-container">
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{ color: '#646cff' }}>
             Select a user from Profiles and click Message to open chat.
           </Typography>
         </Box>
@@ -184,11 +184,6 @@ const Chat = ({ selectedProfile }) => {
         {loading && (
           <Typography variant="body2" color="text.secondary">
             Loading chat...
-          </Typography>
-        )}
-        {!loading && messages.length === 0 && (
-          <Typography variant="body2" color="text.secondary">
-            No messages yet. Say hi.
           </Typography>
         )}
         {messages.map((message) => {

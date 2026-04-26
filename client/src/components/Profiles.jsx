@@ -107,7 +107,6 @@ const Profiles = ({ onStartChat }) => {
                     </ListItemAvatar>
                     <ListItemText
                       primary={profile.username}
-                      secondary={profile.email}
                       primaryTypographyProps={{ className: 'profiles-name' }}
                     />
                   </ListItem>
