@@ -1,8 +1,8 @@
 //WIP - Bator
 
+import cryption from "./cryption";
 import crypto from "crypto";
 import { Buffer } from "buffer";
-import cryption from "./cryption";
 
 const KEY_LENGTH = 32;
 const SALT_LENGTH = 16;
@@ -19,8 +19,8 @@ function generatePinSalt() {
     return crypto.randomBytes(SALT_LENGTH).toString('base64');
 }
 function derivePinKey(pin, pinSaltBase64) {
-    if (typeof pin !== 'string' || pin.length < 4) {
-        throw new Error('PIN must be a string and at least 4 characters.');
+    if (typeof pin !== 'string' || pin.length !== 6) {
+        throw new Error('PIN must be a string and 6 digits.');
     }
     if (typeof pinSaltBase64 !== 'string') {
         throw new Error('pinSaltBase64 must be a string.');
@@ -76,12 +76,22 @@ function decryptMessageFromStorage(messageDoc, conversationKey) {
   );
 }
 
+// Generate shared conversation key deterministically based on both user ids
+function deriveSharedConversationKey(uid1, uid2) {
+    if (!uid1 || !uid2) {
+        throw new Error('Both user IDs are required to derive shared key.');
+    }
+    const [id1, id2] = [String(uid1), String(uid2)].sort();
+    return crypto.createHash('sha256').update(`${id1}:${id2}`).digest();
+}
+
 
 
 export default {
     PBKDF2_ITERATIONS,
     generateMasterKey,
     generateConversationKey,
+    deriveSharedConversationKey,
     generatePinSalt,
     derivePinKey,
     createEncryptedMasterKeyForUser,
